@@ -2,9 +2,9 @@
 #i wypisuje na standardowym wyjściu element ciągu Fibonacciego o indeksie n.
 
 n = int(input("Type in the number: "))
-count = 1
+numbers = list(range(0,n))
 x, y = 0, 1
-while count <= n:
-    x, y = y, x + y
-    count = count + 1
+
+for number in numbers:
+	x, y = y, x+y
 print(x)

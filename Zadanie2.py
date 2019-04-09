@@ -3,4 +3,4 @@
 
 
 n = int(input("Type in an integer:"))
-print(abs(n)) #matematycznie n*-1
+print(abs(n)) #matematycznie n*=-1
