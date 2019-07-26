@@ -21,8 +21,8 @@ class Calculator(object):
         return division
 
 
-number1 = (input("Please type in first number: "))
-number2 = (input("Please type in second number: "))
+number1 = input("Please type in first number: ")
+number2 = input("Please type in second number: ")
 
 dzielenie_testowe = Calculator.divide(number1, number2)
 print(dzielenie_testowe)
