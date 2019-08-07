@@ -1,111 +1,89 @@
 # Napisz kółko i krzyżyk.
 
 from enum import Enum
+
 class GameState(Enum):
     IN_PROGRESS = 1
     OVER = 2
-class fieldOptions(Enum):
+    
+class FieldOption(Enum):
     O = 1
     X = 2
     EMPTY = 3
 
+class Player(Enum):
+    ONE = 1
+    TWO = 2
+
 class TicTacToe(object):
 
-    board = [[fieldOptions.EMPTY, fieldOptions.EMPTY. fieldOptions.EMPTY],
-             [fieldOptions.EMPTY, fieldOptions.EMPTY, fieldOptions.EMPTY],
-             [fieldOptions.EMPTY, fieldOptions.EMPTY, fieldOptions.EMPTY]]
-    chosenField = 0
-    gameState = GameState.IN_PROGRESS
+    def __init__(self):
+        self.gameState = GameState.IN_PROGRESS
+        self.board = [[FieldOption.EMPTY, FieldOption.EMPTY. FieldOption.EMPTY],
+             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
+             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY]]
+        self.activePlayer = Player.ONE
 
-    def __init__(self, gameState, board, activePlayer = "playerOne"):
-        self.gameState = gameState
-        self.board = board
-        self.activePlayer = activePlayer
-
-    def symbolsInLine(self, symbol, threeInLine):
-        self.symbol = symbol #tu coś namieszałam, muszę poprawić
-        self.threeInLine = False
-        for field in board:
-            if field board[0,0] and [0,1] and [0,2] == symbol:
-                threeInLine = True
-            elif field board[1,0] and [1,1] and [1,2] == symbol:
-                threeInLine = True
-            elif field board[2,0] and [2,1] and [2,2] == symbol:
-                threeInLine = True
-            elif field board[0,0] and [1,0] and [2,0] == symbol:
-                threeInLine = True
-            elif field board[0,1] and [1,1] and [2,1] == symbol:
-                threeInLine = True
-            elif field board[0,2] and [1,2] and [2,2] == symbol:
-                threeInLine = True
-            elif field board[0,0] and [1,1] and [2,2] == symbol:
-                threeInLine = True
-            elif field board[2,0] and [1,1] and [0,2] == symbol:
-                threeInLine = True
-            #To powinnam napisać jakoś ładniej
-        return threeInLine
-
-    def gameStateChange(self, gameState):
-        if threeInLine == True:
-            gameState = GameState.OVER
-            if symbolsInLine.symbol == fieldOptions.O:
-                print("Game over! Player One won the game.")
-            if symbolsInLine.symbol == fieldOptions.X:
-                print("Game over! Player Two won the game.")
-        elif board.count(fieldOptions.EMPTY) == 0:
-            gameState = GameState.OVER
-            print("Game over! It's a draw.")
+    def checkGameState(self):
+        if all(field == board[0,0] for field in board[0]):
+            self.gameState = GameState.OVER
+        elif all(field == board[1,0] for field in board[1]):
+            self.gameState = GameState.OVER
+        elif all(field == board[2,0] for field in board[2]):
+            self.gameState = GameState.OVER
+        elif board[0,0] == board[1,0] == board[2,0]:
+            self.gameState = GameState.OVER
+        elif board[0,1] == board[1,1] == board[2,1]:
+            self.gameState = GameState.OVER
+        elif board[0,2] == board[1,2] == board[2,2]:
+            self.gameState = GameState.OVER
+        elif board[2,0] == board[1,1] == board[0,2]:
+            self.gameState = GameState.OVER
         else:
-            gameState = GameState.IN_PROGRESS
-        return gameState
+            self.gameState = GameState.IN_PROGRESS
+        return self.gameState
 
-    def move(self, numBoard, chosenField):
-        self.numBoard = [["1", "2", "3"],
-                 ["4", "5", "6"],
-                 ["7", "8", "9"]]
-        print("\n", numBoard[0], "\n", numBoard[1], "\n", numBoard[2])
-        self.chosenField = input("Please choose the field of your next move, by typing in the number: ")
-        return chosenField
+    def isMoveValid(self, row, col):
+        return self.board[row, col] == FieldOption.EMPTY
 
-    def updateBoard(self, chosenField, symbol):
-        if activePlayer == playerOne:
-            self.symbol = fieldOptions.O
+    def makeMove(self, row, col):
+        if (self.activePlayer == Player.ONE):
+            self.board[row, col] = FieldOption.O
         else:
-            self.symbol = fieldOptions.X
-        if chosenField == 1:
-            board[0,0] = symbol
-        elif chosenField == 2:
-            board[0,1] = symbol
-        elif chosenField == 3:
-            board[0,2] = symbol
-        elif chosenField == 4:
-            board[1,0] = symbol
-        elif chosenField == 5:
-            board[1,1] = symbol
-        elif chosenField == 6:
-            board[1,2] = symbol
-        elif chosenField == 7:
-            board[2,0] = symbol
-        elif chosenField == 8:
-            board[2,1] = symbol
-        elif chosenField == 9:
-            board[2,2] = symbol
+            self.board[row, col] = FieldOption.X
+
+    def switchPlayers(self):
+        if (self.activePlayer == Player.ONE):
+            self.activePlayer = Player.TWO
         else:
-            print("Wrong field number")
-        return board
-        #To też na pewno mogę napisać jakoś ładniej
-        #Dodać opcję akcji jeśli pole nie jest puste
+            self.activePlayer = Player.ONE
 
-    def game(self):
+    def start(self):
 
-        while (gameState == GameState.IN_PROGRESS):
-            #move
-            #update board
-            #check game status
+        while self.gameState == GameState.IN_PROGRESS:
+            print("Player: " + self.activePlayer.name + ": choose coordinate row: ")
+            chosenRow = int(input())
+            print("Player: " + self.activePlayer.name + ": choose coordinate col: ")
+            chosenCol = int(input())
 
-            if (activePlayer == playerOne):
-                activePlayer = playerTwo;
+            if self.isMoveValid(chosenRow, chosenCol) :
+                self.makeMove(chosenRow, chosenCol)
+                self.switchPlayers()
+                self.checkGameState()
             else:
-                activePlayer = playerOne
+                print("Move is not valid. Try again")
 
-#sprawdzić czy wszystkie metody mają swoje parametry
+        if board.count(FieldOption.EMPTY) == 0 and self.gameState == GameState.IN_PROGRESS:
+            print("Game ober! It's a draw.")
+
+        if self.gameState == GameState.OVER:
+            if self.activePlayer == Player.ONE:
+                print("Game over! Player One wins.")
+            else:
+                print("Game over! Player Two wins.")
+            #tylko tu print i input
+
+
+
+tictactoe = TicTacToe()
+tictactoe.start()
