@@ -1,27 +1,29 @@
-# Napisz kółko i krzyżyk.
+# Napisz kolko i krzyzyk.
 
-from enum import Enum
+from enum import Enum # dla Python >3.6, dla wersji 2.7 from aenum import Enum
 
 class GameState(Enum):
     IN_PROGRESS = 1
     OVER = 2
-    
+
+
 class FieldOption(Enum):
     O = 1
     X = 2
     EMPTY = 3
 
+
 class Player(Enum):
     ONE = 1
     TWO = 2
 
-class TicTacToe(object):
 
+class TicTacToe(object):
     def __init__(self):
         self.gameState = GameState.IN_PROGRESS
-        self.board = [[FieldOption.EMPTY, FieldOption.EMPTY. FieldOption.EMPTY],
-             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
-             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY]]
+        self.board = [[FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
+                      [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
+                      [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY]]
         self.activePlayer = Player.ONE
 
     def checkGameState(self):
@@ -74,7 +76,7 @@ class TicTacToe(object):
                 print("Move is not valid. Try again")
 
         if board.count(FieldOption.EMPTY) == 0 and self.gameState == GameState.IN_PROGRESS:
-            print("Game ober! It's a draw.")
+            print("Game over! It's a draw.")
 
         if self.gameState == GameState.OVER:
             if self.activePlayer == Player.ONE:
