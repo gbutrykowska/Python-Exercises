@@ -22,8 +22,13 @@ class TicTacToe(object):
     def __init__(self):
         self.gameState = GameState.IN_PROGRESS
         self.board = [[FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
+<<<<<<< HEAD
                       [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
                       [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY]]
+=======
+             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY],
+             [FieldOption.EMPTY, FieldOption.EMPTY, FieldOption.EMPTY]]
+>>>>>>> 196dfeb6a68e8ed2cb683dbfcc7ece3c0ac621ff
         self.activePlayer = Player.ONE
 
     def checkGameState(self):
